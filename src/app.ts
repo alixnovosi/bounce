@@ -55,7 +55,7 @@ class App {
     }
 
     public setup(): void {
-        this.clearCanvas();
+        this.initCanvas();
 
         this.gameLoop();
     }
@@ -66,34 +66,25 @@ class App {
         this.ball.updatePos();
 
         // collision on left or right.
-        // let ang: number;
-        if (this.ball.posX < 0 + this.ball.radius ||
-            this.ball.posX > this.width - this.ball.radius) {
+        if (this.ball.posX < 0 + this.ball.radius + this.borderWidth ||
+            this.ball.posX > this.width - (this.ball.radius + this.borderWidth + 1)) {
 
-            // ang = Math.atan((this.ball.posX - oldX) / (this.ball.posY - oldY));
             this.ball.posX -= this.ball.velX;
-
             this.ball.velX = -1 * this.ball.velX;
 
         }
 
-        if (this.ball.posY < 0 + this.ball.radius ||
-                 this.ball.posY > this.height - this.ball.radius) {
+        if (this.ball.posY < 0 + this.ball.radius + this.borderWidth ||
+                 this.ball.posY > this.height - (this.ball.radius + this.borderWidth + 1)) {
 
+            this.ball.posY -= this.ball.velY;
             this.ball.velY = -1 * this.ball.velY;
         }
 
         this.render();
     }
 
-    private clearCanvas(): void {
-        this.ctx.clearRect(
-            this.ball.posX-this.ball.radius,
-            this.ball.posY-this.ball.radius,
-            this.ball.posX+this.ball.radius,
-            this.ball.posY+this.ball.radius,
-        );
-
+    private initCanvas(): void {
         this.ctx.beginPath();
         this.ctx.fillStyle = this.bgColor;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -104,6 +95,23 @@ class App {
             this.borderWidth, this.borderWidth,
             this.canvas.width-(this.borderWidth+1), this.canvas.height-(this.borderWidth+1),
         );
+        this.ctx.stroke();
+    }
+
+    private clearCanvas(): void {
+        this.ctx.beginPath();
+        this.ctx.ellipse(
+            this.ball.posX,
+            this.ball.posY,
+            this.ball.radius,
+            this.ball.radius,
+            0,
+            0,
+            Math.PI * 2,
+        );
+        this.ctx.strokeStyle = this.bgColor;
+        this.ctx.fillStyle = this.ball.fillColor;
+        this.ctx.fill();
         this.ctx.stroke();
     }
 
