@@ -20,7 +20,7 @@ var config = {
         ],
     },
     output: {
-        filename: "main.js",
+        filename: "main.[hash].js",
         path: __dirname + "/dist",
     },
     plugins: [
