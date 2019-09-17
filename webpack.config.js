@@ -1,10 +1,27 @@
-const { CheckerPlugin } = require('awesome-typescript-loader')
+const { CheckerPlugin } = require('awesome-typescript-loader');
+
+const TerserPlugin = require('terser-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === "prod";
 
 var config = {
     devtool: "source-map",
     entry: [
-        "./src/app.tsx",
+        "./src/app.ts",
     ],
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                include: /\.(js|jsx|tsx|ts)$/,
+                sourceMap: true,
+                terserOptions: {
+                    output: {
+                        comments: /^\**!|@preserve|@license|@cc_on/i,
+                    },
+                },
+            }),
+        ],
+    },
     module: {
         rules: [
             {
@@ -20,7 +37,7 @@ var config = {
         ],
     },
     output: {
-        filename: "main.[hash].js",
+        filename: isProduction ? "main.[hash].js" : "main.js",
         path: __dirname + "/dist",
     },
     plugins: [

@@ -40,18 +40,18 @@ class App {
     private bgColor: string = "#CCCCFF";
 
     constructor() {
-        this.ball = new Ball(
-            Math.floor(this.width / 2),
-            Math.floor(this.height / 2),
-            Math.random() * 10,
-            Math.random() * 10,
-        );
-
         this.canvas = document.getElementById('canvas');
         this.canvas.width = this.width;
         this.canvas.height = this.height;
 
         this.ctx = this.canvas.getContext('2d');
+
+        this.ball = new Ball(
+            Math.floor(Math.random() * this.canvas.width),
+            Math.floor(Math.random() * this.canvas.height),
+            Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10),
+        );
     }
 
     public setup(): void {
@@ -76,7 +76,8 @@ class App {
             this.ball.velX = -1 * this.ball.velX;
 
         }
-        else if (this.ball.posY < 0 + this.ball.radius ||
+
+        if (this.ball.posY < 0 + this.ball.radius ||
                  this.ball.posY > this.height - this.ball.radius) {
 
             this.ball.velY = -1 * this.ball.velY;

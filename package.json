@@ -7,6 +7,7 @@
     "devDependencies": {
         "@types/node": "^12.7.5",
         "@types/sass": "^1.16.0",
+        "@types/terser-webpack-plugin": "^1.2.1",
         "@types/webpack": "^4.39.1",
         "@types/webpack-dev-server": "^3.1.7",
         "awesome-typescript-loader": "^5.2.1",
@@ -14,6 +15,7 @@
         "sass": "^1.22.12",
         "sass-loader": "^8.0.0",
         "source-map-loader": "^0.2.4",
+        "terser-webpack-plugin": "^2.1.0",
         "typescript": "^3.6.3",
         "webpack": "^4.40.2",
         "webpack-cli": "^3.3.8",
